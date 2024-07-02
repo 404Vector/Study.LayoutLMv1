@@ -1,8 +1,9 @@
 [tool.poetry]
+name = "study-llmv1"
+version = "0.0.0"
 description = "virtual env for using layout lm v1"
 authors = ["HyeongSeok Kim <tiryul@gmail.com>"]
 readme = "README.md"
-package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.10"
