@@ -1,0 +1,8 @@
+from .dependency import *
+
+APP = typer.Typer()
+
+PROJECT_DIR = os.path.dirname(os.path.dirname(__file__))
+DATASET_DIR = os.path.join(PROJECT_DIR, "datasets")
+MODEL_NAME = "microsoft/layoutlm-base-uncased"
+TOKENIZER = LayoutLMTokenizer.from_pretrained(MODEL_NAME)
