@@ -9,10 +9,19 @@ def train(
     num_epochs=3,
     lr=4e-5,
     seed=0,
+    tokenizer=TOKENIZER,
+    dataset_dir=DATASET_DIR,
+    model_name=MODEL_NAME,
+    model_save_dir=MODEL_SAVE_DIR,
 ):
-    tokenizer = TOKENIZER
-    dataset_path = os.path.join(DATASET_DIR, target_dataset_name)
     #
+    os.makedirs(model_save_dir, exist_ok=True)
+    assert os.path.exists(
+        model_save_dir
+    ), f"ERROR, model_save_dir is NOT EXIST({model_save_dir})"
+
+    #
+    dataset_path = os.path.join(dataset_dir, target_dataset_name)
     labels = [label for label in os.listdir(dataset_path)]
     idx2label, label2idx = label_mapping(labels=labels)
     print(label2idx)
@@ -22,7 +31,7 @@ def train(
     model: (
         LayoutLMForSequenceClassification
     ) = LayoutLMForSequenceClassification.from_pretrained(
-        MODEL_NAME,
+        model_name,
         num_labels=len(label2idx),
     )  # type: ignore
     model.to(device)
@@ -37,6 +46,7 @@ def train(
         stratify=data.label,
     )
 
+    #
     train_data = train_data.reset_index(drop=True)
     valid_data = valid_data.reset_index(drop=True)
     print(f"{len(train_data)} training examples, {len(valid_data)} validation examples")
@@ -118,4 +128,4 @@ def train(
         print("Validation accuracy:", validation_accuracy.item())
 
     #
-    model.save_pretrained("saved_model/")
+    model.save_pretrained(model_save_dir)
