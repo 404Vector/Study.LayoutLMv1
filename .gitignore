@@ -3,6 +3,8 @@ datasets/*
 !datasets/README.md
 checkpoints/*
 !checkpoints/README.md
+results/*
+!results/README.md
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
