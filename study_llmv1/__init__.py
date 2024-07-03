@@ -1,4 +1,2 @@
-from .dependency import *
-from .const import APP
-
 from .trainer import train
+from .tester import test
